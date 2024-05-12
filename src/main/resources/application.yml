@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: LibraryApi
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/libraryApi?useSSL=false
+    username: root
+    password: root
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+
+server:
+  error:
+    include-stacktrace: never
+  port: 8080
