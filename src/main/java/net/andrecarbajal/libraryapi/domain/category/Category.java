@@ -1,24 +1,29 @@
 package net.andrecarbajal.libraryapi.domain.category;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+public enum Category {
+    FICTION("fiction"),
+    HORROR("horror"),
+    ROMANCE("romance"),
+    MYSTERY("mystery"),
+    FANTASY("fantasy"),
+    BIOGRAPHY("biography"),
+    HISTORY("history"),
+    SELF_HELP("self-help"),
+    EDUCATION("education"),
+    COOKING("cooking"),
+    ART("art"),
+    RELIGION("religion"),
+    PHILOSOPHY("philosophy"),
+    PSYCHOLOGY("psychology");
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
-@Table(name = "category")
-public class Category {
+    private final String name;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Category(String name) {
+        this.name = name;
+    }
 
-    private String name;
-
-    private String description;
+    @Override
+    public String toString() {
+        return name;
+    }
 }

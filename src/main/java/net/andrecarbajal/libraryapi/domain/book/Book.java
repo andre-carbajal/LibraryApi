@@ -10,7 +10,6 @@ import net.andrecarbajal.libraryapi.domain.category.Category;
 import net.andrecarbajal.libraryapi.domain.publisher.Publisher;
 
 import java.time.LocalTime;
-import java.util.List;
 
 @Data
 @Builder
@@ -35,8 +34,7 @@ public class Book {
 
     private LocalTime publicationTime;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
+    @Enumerated(EnumType.STRING)
     private Category category;
 
     private String description;
