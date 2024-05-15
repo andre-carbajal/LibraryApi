@@ -1,6 +1,6 @@
 package net.andrecarbajal.libraryapi.domain.book;
 
-import lombok.Builder;
+import jakarta.validation.constraints.NotBlank;
 import net.andrecarbajal.libraryapi.domain.author.Author;
 import net.andrecarbajal.libraryapi.domain.category.Category;
 import net.andrecarbajal.libraryapi.domain.publisher.Publisher;
@@ -8,13 +8,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalTime;
 
-@Builder
 public record BookRecord(
-        String title,
-        Author author,
-        Publisher publisher,
+        @NotBlank String title,
+        @NotBlank Author author,
+        @NotBlank Publisher publisher,
         @DateTimeFormat LocalTime publicationTime,
-        Category category,
-        String description,
-        Boolean available) {
+        @NotBlank Category category,
+        @NotBlank String description,
+        @NotBlank Boolean available) {
 }

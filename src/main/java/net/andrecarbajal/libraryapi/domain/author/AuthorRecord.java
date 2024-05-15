@@ -1,6 +1,8 @@
 package net.andrecarbajal.libraryapi.domain.author;
 
+import jakarta.validation.constraints.NotBlank;
+
 public record AuthorRecord(
-        String name
+        @NotBlank String name
 ) {
 }

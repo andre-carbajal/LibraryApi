@@ -15,13 +15,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PublisherController {
 
-    PublisherRepository publisherRepository;
+    private final PublisherRepository publisherRepository;
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Publisher> createPublisher(PublisherRecord publisherRecord) {
+    public ResponseEntity<Publisher> createPublisher(@RequestBody PublisherRecord data) {
         Publisher publisher = Publisher.builder()
-                .name(publisherRecord.name())
+                .name(data.name())
                 .build();
         publisherRepository.save(publisher);
         return ResponseEntity.ok(publisher);
@@ -39,12 +39,12 @@ public class PublisherController {
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity<Publisher> updateAuthor(@PathVariable Long id, PublisherRecord publisherRecord) {
+    public ResponseEntity<Publisher> updateAuthor(@PathVariable Long id, PublisherRecord data) {
         Publisher publisher = publisherRepository.findById(id).orElse(null);
         if (publisher == null) {
             return ResponseEntity.notFound().build();
         }
-        publisher.setName(publisherRecord.name());
+        publisher.setName(data.name());
         publisherRepository.save(publisher);
         return ResponseEntity.ok(publisher);
     }

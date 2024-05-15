@@ -20,21 +20,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookController {
 
-    BookRepository bookRepository;
-    AuthorRepository authorRepository;
-    PublisherRepository publisherRepository;
+    private final BookRepository bookRepository;
+    private final AuthorRepository authorRepository;
+    private final PublisherRepository publisherRepository;
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Book> createBook(BookRecord bookRecord) {
+    public ResponseEntity<Book> createBook(@RequestBody BookRecord data) {
         Book book = Book.builder()
-                .title(bookRecord.title())
-                .author(bookRecord.author())
-                .publisher(bookRecord.publisher())
-                .publicationTime(bookRecord.publicationTime())
-                .category(bookRecord.category())
-                .description(bookRecord.description())
-                .available(bookRecord.available())
+                .title(data.title())
+                .author(data.author())
+                .publisher(data.publisher())
+                .publicationTime(data.publicationTime())
+                .category(data.category())
+                .description(data.description())
+                .available(data.available())
                 .build();
 
         bookRepository.save(book);
@@ -43,19 +43,19 @@ public class BookController {
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity<Book> updateBook(@PathVariable Long id, BookRecord bookRecord) {
+    public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody BookRecord data) {
         Book book = bookRepository.findById(id).orElse(null);
         if (book == null) {
             return ResponseEntity.notFound().build();
         }
 
-        book.setTitle(bookRecord.title());
-        book.setAuthor(bookRecord.author());
-        book.setPublisher(bookRecord.publisher());
-        book.setPublicationTime(bookRecord.publicationTime());
-        book.setCategory(bookRecord.category());
-        book.setDescription(bookRecord.description());
-        book.setAvailable(bookRecord.available());
+        book.setTitle(data.title());
+        book.setAuthor(data.author());
+        book.setPublisher(data.publisher());
+        book.setPublicationTime(data.publicationTime());
+        book.setCategory(data.category());
+        book.setDescription(data.description());
+        book.setAvailable(data.available());
 
         bookRepository.save(book);
         return ResponseEntity.ok(book);
