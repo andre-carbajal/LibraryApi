@@ -27,12 +27,22 @@ public class BookController {
     @PostMapping
     @Transactional
     public ResponseEntity<Book> createBook(@RequestBody BookRecord data) {
+        Author author = authorRepository.findById(data.authorId()).orElse(null);
+        if (author == null) {
+            return ResponseEntity.notFound().build();
+        }
+        Publisher publisher = publisherRepository.findById(data.publisherId()).orElse(null);
+        if (publisher == null) {
+            return ResponseEntity.notFound().build();
+        }
+        Category category = Category.valueOf(data.category().toUpperCase());
+
         Book book = Book.builder()
                 .title(data.title())
-                .author(data.author())
-                .publisher(data.publisher())
+                .author(author)
+                .publisher(publisher)
                 .publicationTime(data.publicationTime())
-                .category(data.category())
+                .category(category)
                 .description(data.description())
                 .available(data.available())
                 .build();
@@ -48,12 +58,21 @@ public class BookController {
         if (book == null) {
             return ResponseEntity.notFound().build();
         }
+        Author author = authorRepository.findById(data.authorId()).orElse(null);
+        if (author == null) {
+            return ResponseEntity.notFound().build();
+        }
+        Publisher publisher = publisherRepository.findById(data.publisherId()).orElse(null);
+        if (publisher == null) {
+            return ResponseEntity.notFound().build();
+        }
+        Category category = Category.valueOf(data.category().toUpperCase());
 
         book.setTitle(data.title());
-        book.setAuthor(data.author());
-        book.setPublisher(data.publisher());
+        book.setAuthor(author);
+        book.setPublisher(publisher);
         book.setPublicationTime(data.publicationTime());
-        book.setCategory(data.category());
+        book.setCategory(category);
         book.setDescription(data.description());
         book.setAvailable(data.available());
 
