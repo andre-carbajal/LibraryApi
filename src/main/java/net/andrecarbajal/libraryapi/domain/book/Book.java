@@ -9,7 +9,7 @@ import net.andrecarbajal.libraryapi.domain.author.Author;
 import net.andrecarbajal.libraryapi.domain.category.Category;
 import net.andrecarbajal.libraryapi.domain.publisher.Publisher;
 
-import java.time.LocalTime;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -32,7 +32,7 @@ public class Book {
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
-    private LocalTime publicationTime;
+    private LocalDate publication_time;
 
     @Enumerated(EnumType.STRING)
     private Category category;

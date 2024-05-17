@@ -1,7 +1,0 @@
-ALTER TABLE book DROP FOREIGN KEY book_ibfk_3;
-
-ALTER TABLE book DROP COLUMN category_id;
-
-ALTER TABLE book ADD COLUMN category VARCHAR(100);
-
-DROP TABLE category;

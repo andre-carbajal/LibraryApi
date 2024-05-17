@@ -41,7 +41,7 @@ public class BookController {
                 .title(data.title())
                 .author(author)
                 .publisher(publisher)
-                .publicationTime(data.publicationTime())
+                .publication_time(data.publicationTime())
                 .category(category)
                 .description(data.description())
                 .available(data.available())
@@ -71,7 +71,7 @@ public class BookController {
         book.setTitle(data.title());
         book.setAuthor(author);
         book.setPublisher(publisher);
-        book.setPublicationTime(data.publicationTime());
+        book.setPublication_time(data.publicationTime());
         book.setCategory(category);
         book.setDescription(data.description());
         book.setAvailable(data.available());
