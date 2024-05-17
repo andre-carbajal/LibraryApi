@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/book")
@@ -102,30 +103,67 @@ public class BookController {
         return ResponseEntity.ok(bookRepository.findById(id).orElse(null));
     }
 
-    @GetMapping("/{authorName}")
-    public ResponseEntity<List<Book>> getBooksByAuthor(@PathVariable String authorName) {
-        Author author = authorRepository.findByName(authorName).orElse(null);
+    @GetMapping("/author/{name}")
+    public ResponseEntity<List<Book>> getBooksByAuthor(@PathVariable String name) {
+        Author author = authorRepository.findByName(name).orElse(null);
         return ResponseEntity.ok(bookRepository.findByAuthor(author));
     }
 
-    @GetMapping("/{publisherName}")
-    public ResponseEntity<List<Book>> getBooksByPublisher(@PathVariable String publisherName) {
-        Publisher publisher = publisherRepository.findByName(publisherName).orElse(null);
+    @GetMapping("/publisher/{name}")
+    public ResponseEntity<List<Book>> getBooksByPublisher(@PathVariable String name) {
+        Publisher publisher = publisherRepository.findByName(name).orElse(null);
         return ResponseEntity.ok(bookRepository.findByPublisher(publisher));
     }
 
-    @GetMapping("/{title}")
+    @GetMapping("/title/{title}")
     public ResponseEntity<List<Book>> getBooksByTitle(@PathVariable String title) {
         return ResponseEntity.ok(bookRepository.findByTitle(title));
     }
 
-    @GetMapping("/{category}")
+    @GetMapping("/category/{category}")
     public ResponseEntity<List<Book>> getBooksByCategory(@PathVariable Category category) {
         return ResponseEntity.ok(bookRepository.findByCategory(category));
     }
 
-    @GetMapping("/{available}")
+    @GetMapping("/available/{available}")
     public ResponseEntity<List<Book>> getBooksByAvailability(@PathVariable Boolean available) {
         return ResponseEntity.ok(bookRepository.findByAvailable(available));
+    }
+
+    @GetMapping("/filter/{authorName}/{publisherName}/{title}/{category}/{available}")
+    public ResponseEntity<List<Book>> getBooksByFilter(
+            @PathVariable(required = false) String authorName,
+            @PathVariable(required = false) String publisherName,
+            @PathVariable(required = false) String title,
+            @PathVariable(required = false) String category,
+            @PathVariable(required = false) String available) {
+
+        List<Book> books = bookRepository.findAll();
+
+        if (authorName != null && !authorName.equals("null")) {
+            Author author = authorRepository.findByName(authorName).orElse(null);
+            books = books.stream().filter(book -> book.getAuthor().equals(author)).collect(Collectors.toList());
+        }
+
+        if (publisherName != null && !publisherName.equals("null")) {
+            Publisher publisher = publisherRepository.findByName(publisherName).orElse(null);
+            books = books.stream().filter(book -> book.getPublisher().equals(publisher)).collect(Collectors.toList());
+        }
+
+        if (title != null && !title.equals("null")) {
+            books = books.stream().filter(book -> book.getTitle().equals(title)).collect(Collectors.toList());
+        }
+
+        if (category != null && !category.equals("null")) {
+            Category categoryEnum = Category.valueOf(category.toUpperCase());
+            books = books.stream().filter(book -> book.getCategory().equals(categoryEnum)).collect(Collectors.toList());
+        }
+
+        if (available != null && !available.equals("null")) {
+            Boolean availableBoolean = Boolean.valueOf(available);
+            books = books.stream().filter(book -> book.getAvailable().equals(availableBoolean)).collect(Collectors.toList());
+        }
+
+        return ResponseEntity.ok(books);
     }
 }
