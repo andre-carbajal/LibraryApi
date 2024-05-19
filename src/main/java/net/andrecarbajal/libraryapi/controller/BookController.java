@@ -1,5 +1,7 @@
 package net.andrecarbajal.libraryapi.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import net.andrecarbajal.libraryapi.domain.author.Author;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Tag(name = "Book Controller")
 @RestController
 @RequestMapping("/api/book")
 @RequiredArgsConstructor
@@ -27,6 +30,7 @@ public class BookController {
 
     @PostMapping
     @Transactional
+    @Operation(summary = "Create a new book")
     public ResponseEntity<Book> createBook(@RequestBody BookRecord data) {
         Author author = authorRepository.findById(data.authorId()).orElse(null);
         if (author == null) {
@@ -38,15 +42,7 @@ public class BookController {
         }
         Category category = Category.valueOf(data.category().toUpperCase());
 
-        Book book = Book.builder()
-                .title(data.title())
-                .author(author)
-                .publisher(publisher)
-                .publication_time(data.publicationTime())
-                .category(category)
-                .description(data.description())
-                .available(data.available())
-                .build();
+        Book book = Book.builder().title(data.title()).author(author).publisher(publisher).publication_time(data.publicationTime()).category(category).description(data.description()).available(data.available()).build();
 
         bookRepository.save(book);
         return ResponseEntity.ok(book);
@@ -54,6 +50,7 @@ public class BookController {
 
     @PutMapping("/{id}")
     @Transactional
+    @Operation(summary = "Update a book by ID")
     public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody BookRecord data) {
         Book book = bookRepository.findById(id).orElse(null);
         if (book == null) {
@@ -83,6 +80,7 @@ public class BookController {
 
     @DeleteMapping("/{id}")
     @Transactional
+    @Operation(summary = "Delete a book by ID")
     public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
         Book book = bookRepository.findById(id).orElse(null);
         if (book == null) {
@@ -94,43 +92,51 @@ public class BookController {
     }
 
     @GetMapping
+    @Operation(summary = "Get all books")
     public ResponseEntity<List<Book>> getBooks() {
         return ResponseEntity.ok(bookRepository.findAll());
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get a book by ID")
     public ResponseEntity<Book> getBook(@PathVariable Long id) {
         return ResponseEntity.ok(bookRepository.findById(id).orElse(null));
     }
 
     @GetMapping("/author/{name}")
+    @Operation(summary = "Get books by author")
     public ResponseEntity<List<Book>> getBooksByAuthor(@PathVariable String name) {
         Author author = authorRepository.findByName(name).orElse(null);
         return ResponseEntity.ok(bookRepository.findByAuthor(author));
     }
 
     @GetMapping("/publisher/{name}")
+    @Operation(summary = "Get books by publisher")
     public ResponseEntity<List<Book>> getBooksByPublisher(@PathVariable String name) {
         Publisher publisher = publisherRepository.findByName(name).orElse(null);
         return ResponseEntity.ok(bookRepository.findByPublisher(publisher));
     }
 
     @GetMapping("/title/{title}")
+    @Operation(summary = "Get books by title")
     public ResponseEntity<List<Book>> getBooksByTitle(@PathVariable String title) {
         return ResponseEntity.ok(bookRepository.findByTitle(title));
     }
 
     @GetMapping("/category/{category}")
+    @Operation(summary = "Get books by category")
     public ResponseEntity<List<Book>> getBooksByCategory(@PathVariable Category category) {
         return ResponseEntity.ok(bookRepository.findByCategory(category));
     }
 
     @GetMapping("/available/{available}")
+    @Operation(summary = "Get books by availability")
     public ResponseEntity<List<Book>> getBooksByAvailability(@PathVariable Boolean available) {
         return ResponseEntity.ok(bookRepository.findByAvailable(available));
     }
 
     @GetMapping("/filter/{authorName}/{publisherName}/{title}/{category}/{available}")
+    @Operation(summary = "Get books by filtering criteria (null for no filter)")
     public ResponseEntity<List<Book>> getBooksByFilter(
             @PathVariable(required = false) String authorName,
             @PathVariable(required = false) String publisherName,
