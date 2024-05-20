@@ -38,7 +38,9 @@ public class AuthorController {
     @GetMapping("/{id}")
     @Operation(summary = "Get an author by ID")
     public ResponseEntity<Author> getAuthor(@PathVariable Long id) {
-        return ResponseEntity.ok(authorRepository.findById(id).orElse(null));
+        return authorRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")

@@ -100,7 +100,9 @@ public class BookController {
     @GetMapping("/{id}")
     @Operation(summary = "Get a book by ID")
     public ResponseEntity<Book> getBook(@PathVariable Long id) {
-        return ResponseEntity.ok(bookRepository.findById(id).orElse(null));
+        return bookRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/author/{name}")

@@ -38,7 +38,9 @@ public class PublisherController {
     @GetMapping("/{id}")
     @Operation(summary = "Get a publisher by ID")
     public ResponseEntity<Publisher> getAuthor(@PathVariable Long id) {
-        return ResponseEntity.ok(publisherRepository.findById(id).orElse(null));
+        return publisherRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
