@@ -24,7 +24,10 @@ public class AuthorController {
     @Transactional
     @Operation(summary = "Create a new author")
     public ResponseEntity<Author> createAuthor(@RequestBody AuthorRecord data) {
-        Author author = Author.builder().name(data.name()).build();
+        Author author = Author.builder()
+                .name(data.name())
+                .lastName(data.lastName())
+                .build();
         authorRepository.save(author);
         return ResponseEntity.ok(author);
     }
@@ -52,6 +55,7 @@ public class AuthorController {
             return ResponseEntity.notFound().build();
         }
         author.setName(data.name());
+        author.setLastName(data.lastName());
         authorRepository.save(author);
         return ResponseEntity.ok(author);
     }

@@ -105,11 +105,21 @@ public class BookController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/author/{name}")
-    @Operation(summary = "Get books by author")
-    public ResponseEntity<List<Book>> getBooksByAuthor(@PathVariable String name) {
-        Author author = authorRepository.findByName(name).orElse(null);
-        return ResponseEntity.ok(bookRepository.findByAuthor(author));
+    @GetMapping("/author/{name}/{lastName}")
+    @Operation(summary = "Get books by author's name and last name")
+    public ResponseEntity<List<Book>> getBooksByAuthor(@PathVariable(required = false) String name, @PathVariable(required = false) String lastName) {
+        List<Book> books;
+        if (name != null && !name.equals("null")) {
+            Author author = authorRepository.findByName(name).orElse(null);
+            books = bookRepository.findByAuthor(author);
+        } else if (lastName != null && !lastName.equals("null")) {
+            Author author = authorRepository.findByLastName(lastName).orElse(null);
+            books = bookRepository.findByAuthor(author);
+        } else {
+            Author author = authorRepository.findByNameAndLastName(name, lastName).orElse(null);
+            books = bookRepository.findByAuthor(author);
+        }
+        return ResponseEntity.ok(books);
     }
 
     @GetMapping("/publisher/{name}")
