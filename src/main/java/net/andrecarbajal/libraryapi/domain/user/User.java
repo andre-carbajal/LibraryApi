@@ -1,5 +1,6 @@
 package net.andrecarbajal.libraryapi.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import net.andrecarbajal.libraryapi.domain.role.Role;
@@ -28,5 +29,6 @@ public class User {
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JsonManagedReference
     private Set<Role> roles;
 }
