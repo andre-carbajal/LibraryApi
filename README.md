@@ -49,8 +49,8 @@ mvn flyway:migrate
 mvn spring-boot:run
 ```
 
-## Documentation
-The API documentation is available at http://localhost:8080/doc
+## API Documentation
+The API documentation is generated using `Springdoc OpenAPI`. This allows for interactive exploration of the API via a web interface. The documentation is available at http://localhost:8080/doc after starting the application.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
