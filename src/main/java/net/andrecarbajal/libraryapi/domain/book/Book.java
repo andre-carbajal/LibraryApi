@@ -1,5 +1,6 @@
 package net.andrecarbajal.libraryapi.domain.book;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,10 +27,12 @@ public class Book {
 
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
+    @JsonBackReference
     private Author author;
 
     @ManyToOne
     @JoinColumn(name = "publisher_id", nullable = false)
+    @JsonBackReference
     private Publisher publisher;
 
     private LocalDate publication_time;
