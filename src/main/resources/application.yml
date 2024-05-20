@@ -3,7 +3,7 @@ spring:
     name: LibraryApi
 
   datasource:
-    url: jdbc:mysql://localhost:3306/libraryApi?useSSL=false
+    url: jdbc:mysql://localhost:3306/libraryApi?useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: root
 

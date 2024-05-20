@@ -49,6 +49,23 @@ mvn flyway:migrate
 mvn spring-boot:run
 ```
 
+## Docker Execution
+
+To run this application using Docker, follow these steps:
+
+1. Build the Docker image:
+```bash
+docker build -t library-api .
+```
+
+2. Run the Docker container:
+```bash
+docker run -e 'DB_HOST=<your_database_host>' -e 'DB_PORT=<your_database_port>' -e 'DB_USERNAME=<your_database_username>' -e 'DB_PASSWORD=<your_database_password>' -p 8080:8080 libraryapi
+```
+Replace `<your_database_host>`, `<your_database_port>`, `<your_database_username>`, and `<your_database_password>` with your actual database credentials, or if you are using a local database, you can use `host.docker.internal` as the DB_HOST.
+
+The application will be accessible at `http://localhost:8080`.
+
 ## API Documentation
 The API documentation is generated using `Springdoc OpenAPI`. This allows for interactive exploration of the API via a web interface. The documentation is available at http://localhost:8080/doc after starting the application.
 
