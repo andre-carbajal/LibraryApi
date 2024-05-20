@@ -44,7 +44,7 @@ public class PublisherController {
     @PutMapping("/{id}")
     @Transactional
     @Operation(summary = "Update a publisher by ID")
-    public ResponseEntity<Publisher> updateAuthor(@PathVariable Long id, PublisherRecord data) {
+    public ResponseEntity<Publisher> updateAuthor(@PathVariable Long id, @RequestBody PublisherRecord data) {
         Publisher publisher = publisherRepository.findById(id).orElse(null);
         if (publisher == null) {
             return ResponseEntity.notFound().build();

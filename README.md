@@ -9,6 +9,13 @@ LibraryApi is a Java-based web application that provides a REST fulL API for man
 - MySQL
 - Maven
 - Flyway for database migrations
+- Spring Security for authentication and authorization
+
+## Spring Security
+In this project, Spring Security is used to handle user authentication and authorization. It has been configured to authenticate users through a custom user details service that loads user details by their username. User roles are used to authorize requests to different API endpoints.
+
+### Roles
+Roles in Spring Security are used to authorize users to access different parts of the application. In this project, two roles are used: `ROLE_USER` and `ROLE_ADMIN`. These roles must be added to the database with the prefix `ROLE_` for Spring Security to recognize them.
 
 ## Setup
 To run this project, you need to have Java and Maven installed on your machine.
@@ -28,12 +35,16 @@ cd LibraryApi
 CREATE DATABASE libraryApi;
 ```
 
-4. Build the project:
+5. Build the project:
 ```bash
 mvn clean install
 ```
+6. Run the Flyway migrations to set up the database schema:
+```bash
+mvn flyway:migrate
+```
 
-5. Run the project:
+7. Run the project:
 ```bash
 mvn spring-boot:run
 ```
