@@ -20,7 +20,7 @@ import java.util.Collections;
 
 @Tag(name = "User Controller")
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 public class UserController {
 

@@ -14,7 +14,7 @@ import java.util.List;
 
 @Tag(name = "Publisher Controller")
 @RestController
-@RequestMapping("/api/publisher")
+@RequestMapping("/api/v1/publisher")
 @RequiredArgsConstructor
 public class PublisherController {
 

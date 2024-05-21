@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 @Tag(name = "Book Controller")
 @RestController
-@RequestMapping("/api/book")
+@RequestMapping("/api/v1/book")
 @RequiredArgsConstructor
 public class BookController {
 
