@@ -13,10 +13,11 @@ ADD ./target/LibraryApi.jar LibraryApi.jar
 # Make port 8080 available to the world outside this container
 EXPOSE 8080
 
-ENV DB_HOST=''
-ENV DB_PORT=''
-ENV DB_USERNAME=''
-ENV DB_PASSWORD=''
+ENV DB_HOST='host.docker.internal'
+ENV DB_PORT='3306'
+ENV DB_DATABASE = 'libraryApi'
+ENV DB_USERNAME='root'
+ENV DB_PASSWORD='root'
 
 # Run the jar file with the prod profile
 ENTRYPOINT ["java","-jar","-Dspring.profiles.active=prod","./LibraryApi.jar"]
