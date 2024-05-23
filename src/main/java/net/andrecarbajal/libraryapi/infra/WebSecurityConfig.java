@@ -31,7 +31,7 @@ public class WebSecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.GET).permitAll()
-                        .requestMatchers("/api/v1/users/register").permitAll()
+                        .requestMatchers("/api/v1/users/**").permitAll()
                         .requestMatchers("/api/v1/author/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/api/v1/publisher/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/api/v1/book/**").hasRole("ADMIN")
