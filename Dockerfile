@@ -1,8 +1,23 @@
 # Start with a base image containing Java runtime and Maven
-FROM eclipse-temurin:21-jre
+FROM maven:3.9.6-eclipse-temurin-21
 
 # Add Maintainer Info
 LABEL maintainer="andre-carbajal"
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the pom.xml file
+COPY ./pom.xml ./pom.xml
+
+# Download all required dependencies into one layer
+RUN mvn dependency:go-offline -B
+
+# Copy the project source
+COPY ./src ./src
+
+# Package the application
+RUN mvn package -DskipTests
 
 # Add a volume pointing to /tmp
 VOLUME /tmp
