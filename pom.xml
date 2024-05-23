@@ -90,18 +90,6 @@
                     </excludes>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-maven-plugin</artifactId>
-                <configuration>
-                    <url>jdbc:mysql://localhost:3306</url>
-                    <user>root</user>
-                    <password>root</password>
-                    <schemas>
-                        <schema>libraryApi</schema>6
-                    </schemas>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
