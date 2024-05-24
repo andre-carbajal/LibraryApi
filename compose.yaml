@@ -12,7 +12,7 @@ services:
     networks:
       - stack
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-padmin1234"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p", "root"]
       interval: 30s
       timeout: 10s
       retries: 3
