@@ -3,6 +3,21 @@
 ## Description
 LibraryApi is a Java-based web application that provides a REST fulL API for managing a library system. It is built with Spring Boot and uses MySQL for data persistence.
 
+<details>
+<summary>Index</summary>
+
+- [Technologies](#technologies)
+- [Spring Security](#spring-security)
+   - [Roles](#roles)
+- [Setup](#setup)
+- [Docker Execution](#docker-execution)
+   - [Prerequisites](#prerequisites)
+   - [Steps](#steps)
+- [API Documentation](#api-documentation)
+- [License](#license)
+
+</details>
+
 ## Technologies
 - Java 21
 - Spring Boot 3.2.5
@@ -16,10 +31,6 @@ In this project, Spring Security is used to handle user authentication and autho
 
 ### Roles
 Roles in Spring Security are used to authorize users to access different parts of the application(POST, PUT, DELETE). In this project, two roles are used: `ROLE_USER` and `ROLE_ADMIN`. These roles must be added to the database with the prefix `ROLE_` for Spring Security to recognize them.
-```sql
-INSERT INTO role (name) VALUES ('ROLE_USER');
-INSERT INTO role (name) VALUES ('ROLE_ADMIN');
-```
 
 ## Setup
 To run this project, you need to have Java and Maven installed on your machine.
@@ -94,15 +105,15 @@ Ensure you have Docker and Docker Compose installed on your machine. If not, you
 
 3. **Run the Docker Compose:**
 
-   Docker Compose uses a file named `docker-compose.yml` for defining and running multi-container Docker applications. In this project, the `docker-compose.yml` file is named `compose.yaml`.
+   Docker Compose uses a file named `docker-compose.yml` for defining and running multi-container Docker applications.
 
    Run the following command in the terminal to start the application and the database using Docker Compose:
 
     ```bash
-    docker compose -f compose.yaml up
+    docker compose up
     ```
 
-   This command tells Docker Compose to start the services defined in the `compose.yaml` file.
+   This command tells Docker Compose to start the services defined in the `docker-compose.yml` file.
 
    The application will be accessible at `http://localhost:8080`.
 
@@ -111,10 +122,10 @@ Ensure you have Docker and Docker Compose installed on your machine. If not, you
    You can stop the services started by Docker Compose by running the following command in the terminal:
 
     ```bash
-    docker compose -f compose.yaml down
+    docker compose down
     ```
 
-   This command tells Docker Compose to stop the services defined in the `compose.yaml` file.
+   This command tells Docker Compose to stop the services defined in the `docker-compose.yml` file.
 
 ## API Documentation
 The API documentation is generated using `Springdoc OpenAPI`. This allows for interactive exploration of the API via a web interface. The documentation is available at http://localhost:8080/doc after starting the application.
