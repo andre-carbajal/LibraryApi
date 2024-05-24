@@ -25,33 +25,38 @@ INSERT INTO role (name) VALUES ('ROLE_ADMIN');
 To run this project, you need to have Java and Maven installed on your machine.
 
 1. Clone the repository:
-```bash
-git clone https://github.com/andre-carbajal/LibraryApi.git
-```
+   ```bash
+   git clone https://github.com/andre-carbajal/LibraryApi.git
+   ```
 
 2. Navigate to the project directory:
-```bash
-cd LibraryApi
-```
+   ```bash
+   cd LibraryApi
+   ```
 
 3. Create a MySQL database:
-```sql
-CREATE DATABASE libraryApi;
-```
+   ```sql
+   CREATE DATABASE libraryApi;
+   ```
+
+4. Download the dependencies:
+   ```bash
+   mvn dependency:resolve
+   ```
 
 5. Build the project:
-```bash
-mvn clean install
-```
+   ```bash
+   mvn clean install
+   ```
 6. Run the Flyway migrations to set up the database schema:
-```bash
-mvn flyway:migrate
-```
+   ```bash
+   mvn flyway:migrate
+   ```
 
 7. Run the project:
-```bash
-mvn spring-boot:run
-```
+   ```bash
+   mvn spring-boot:run
+   ```
 
 ## Docker Execution
 
