@@ -55,20 +55,61 @@ mvn spring-boot:run
 
 ## Docker Execution
 
-To run this application using Docker, follow these steps:
+This application can be run using Docker and Docker Compose. Docker allows you to create a container for your application, ensuring it has all the dependencies it needs to run, and Docker Compose allows you to manage applications that require multiple containers, like this one which requires a separate container for the MySQL database.
 
-1. Build the Docker image:
-```bash
-docker build -t library-api .
-```
+### Prerequisites
 
-2. Run the Docker container:
-```bash
-docker run -e 'DB_HOST=<your_database_host>' -e 'DB_PORT=<your_database_port>' -e 'DB_USERNAME=<your_database_username>' -e 'DB_PASSWORD=<your_database_password>' -p 8080:8080 libraryapi
-```
-Replace `<your_database_host>`, `<your_database_port>`, `<your_database_username>`, and `<your_database_password>` with your actual database credentials, or if you are using a local database, you can use `host.docker.internal` as the DB_HOST.
+Ensure you have Docker and Docker Compose installed on your machine. If not, you can download them from the official Docker website.
 
-The application will be accessible at `http://localhost:8080`.
+### Steps
+
+1. **Build the Docker images:**
+
+   Docker can build images automatically by reading the instructions from a Dockerfile. In the root directory of the project, you can find a `Dockerfile` which contains instructions on how to build the image for the application.
+
+   Run the following command in the terminal to build the Docker image:
+
+    ```bash
+    docker build -t library-api .
+    ```
+
+   This command tells Docker to build an image using the Dockerfile in the current directory and tag the image as `library-api`.
+
+2. **Run the Docker container:**
+
+   After building the Docker image, you can run the Docker container with the following command:
+
+    ```bash
+    docker run -e 'DB_HOST=<your_database_host>' -e 'DB_PORT=<your_database_port>' -e 'DB_USERNAME=<your_database_username>' -e 'DB_PASSWORD=<your_database_password>' -p 8080:8080 library-api
+    ```
+
+   Replace `<your_database_host>`, `<your_database_port>`, `<your_database_username>`, and `<your_database_password>` with your actual database credentials. If you are using a local database, you can use `host.docker.internal` as the `DB_HOST`.
+
+   This command tells Docker to run the `library-api` image as a container, with the specified environment variables and port mapping. The application will be accessible at `http://localhost:8080`.
+
+3. **Run the Docker Compose:**
+
+   Docker Compose uses a file named `docker-compose.yml` for defining and running multi-container Docker applications. In this project, the `docker-compose.yml` file is named `compose.yaml`.
+
+   Run the following command in the terminal to start the application and the database using Docker Compose:
+
+    ```bash
+    docker compose -f compose.yaml up
+    ```
+
+   This command tells Docker Compose to start the services defined in the `compose.yaml` file.
+
+   The application will be accessible at `http://localhost:8080`.
+
+4. **Stop the Docker Compose:**
+
+   You can stop the services started by Docker Compose by running the following command in the terminal:
+
+    ```bash
+    docker compose -f compose.yaml down
+    ```
+
+   This command tells Docker Compose to stop the services defined in the `compose.yaml` file.
 
 ## API Documentation
 The API documentation is generated using `Springdoc OpenAPI`. This allows for interactive exploration of the API via a web interface. The documentation is available at http://localhost:8080/doc after starting the application.
